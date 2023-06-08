@@ -10,9 +10,17 @@ const server = http.createServer(app)
 const io = socketio(server)
 
 io.on('connection', socket => {
-    console.log('New Web Connection')
 
     socket.emit('message', 'welcome to chatchord')
+    io.emit('message', 'A user has joined the chatchord')
+
+    socket.on('disconnect', () => {
+        io.emit('message', 'A user has left the chatchord')
+
+    })
+    socket.on('chatmessage', msg => {
+        io.emit('message', msg)
+    })
 })
 app.use(express.static('./public'))
 
