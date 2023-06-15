@@ -16,5 +16,17 @@ const getCurrentUsers = (id) => {
     }
     return user
 }
+const removeUser = (id) => {
+    const index = users.findIndex((user) => user.id === id)
+    if (index !== -1) {
+        return users.splice(index, 1)[0]
+    }
+}
+const getRoomUsers = (room) => {
+    console.log(room)
+    console.log(users)
+    const roomUsers = users.filter((user) => user.room === room)
+    return roomUsers
+}
 
-module.exports = { joinUsers, getCurrentUsers }
+module.exports = { joinUsers, getCurrentUsers, removeUser, getRoomUsers }
