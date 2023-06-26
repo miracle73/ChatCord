@@ -23,8 +23,6 @@ const removeUser = (id) => {
     }
 }
 const getRoomUsers = (room) => {
-    console.log(room)
-    console.log(users)
     const roomUsers = users.filter((user) => user.room === room)
     return roomUsers
 }

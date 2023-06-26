@@ -11,10 +11,11 @@ const { joinUsers, getCurrentUsers, removeUser, getRoomUsers } = require('./util
 const server = http.createServer(app)
 const io = socketio(server)
 
+
+
 io.on('connection', socket => {
 
     socket.on('joinRoom', ({ username, room }) => {
-        console.log(socket.id)
         const user = joinUsers(socket.id, username, room)
         socket.join(user.room)
         const roomUsers = getRoomUsers(user.room)
@@ -34,7 +35,7 @@ io.on('connection', socket => {
         if (user) {
             const roomUsers = getRoomUsers(user.room)
             socket.emit('message', formatMessages('chatbox', 'You left the chatchord', roomUsers))
-            socket.broadcast.to(user.room).emit('message', formatMessages('chatbox', `A ${user.username} has left the chatchord`, roomUsers))
+            socket.broadcast.to(user.room).emit('message', formatMessages('chatbox', `${user.username} has left the chatchord`, roomUsers))
         }
 
 
